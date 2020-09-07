@@ -11,18 +11,21 @@ black = (0, 0, 0)
 
 # setup
 
+fps = 60
+
 rectX = 100;
-rectY = 50;
-xVel = 0.12;
-yVel = 0.21;
+rectY = 150;
+xVel = 3;
+yVel = 3;
 
 sizeX = 10
 sizeY = 10
 
-sizeFactor = 0.02;
+sizeFactor = 0.5;
 
 window.fill(white)
 
+clock = pygame.time.Clock()
 # Game Loop
 while not exit_game:
     for events in pygame.event.get():
@@ -42,9 +45,14 @@ while not exit_game:
     rectY += yVel
 
     sizeX += sizeFactor
-
     sizeY += sizeFactor
-    pygame.display.update()
 
+    if sizeX < 10 or sizeY < 10:
+        sizeFactor = -sizeFactor
+
+    pygame.display.update()
+    clock.tick(fps)
 pygame.quit()
 quit()
+
+# Sometimes rectangle crosses window border
